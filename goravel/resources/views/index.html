@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthy Living and BMI Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex">
+    <div class="flex flex-row justify-center w-full">
+        <div class="bg-white p-8 rounded-lg shadow-md w-96 m-4">
+            <h1 class="text-2xl font-bold mb-6 text-center">BMI Calculator</h1>
+            <form id="bmiForm" class="space-y-4">
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-700">Nama</label>
+                    <input type="text" id="name" name="name" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <div>
+                    <label for="age" class="block text-sm font-medium text-gray-700">Umur</label>
+                    <input type="number" id="age" name="age" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <div>
+                    <label for="weight" class="block text-sm font-medium text-gray-700">Badan (kg)</label>
+                    <input type="number" id="weight" name="weight" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <div>
+                    <label for="height" class="block text-sm font-medium text-gray-700">Tinggi (cm)</label>
+                    <input type="number" id="height" name="height" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <button type="submit" class="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    Calculate BMI
+                </button>
+            </form>
+            <div id="result" class="mt-6 hidden">
+                <h2 class="text-xl font-semibold mb-2">Hasil</h2>
+                <p id="nameResult" class="text-gray-700"></p>
+                <p id="ageResult" class="text-gray-700"></p>
+                <p id="bmiResult" class="text-gray-700"></p>
+                <p id="categoryResult" class="font-medium mt-2"></p>
+            </div>
+            <button id="viewArticles" class="mt-6 w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 hidden">
+                Baca Semua Artikel
+            </button>
+        </div>
+
+        <div class="container w-screen">
+            <div class="header flex items-center justify-between">
+                <div class="left flex">
+                    <div class="logo w-16 h-16">
+                        <img src="https://media.discordapp.net/attachments/1268524227796140034/1298543885819052032/image-removebg-preview-removebg-preview.png?ex=67364afc&is=6734f97c&hm=82882d81c7b5063d5063dac2f135a5c2374603a8affaeeb367fddbd80684321b&=&format=webp&quality=lossless&width=437&height=437" class="w-full h-full" />
+                    </div>
+                </div>
+                <div class="flex-grow flex items-center">
+                    <input type="text" id="searchInput" placeholder="hidup-sehat" class="flex-grow rounded-l-lg border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 w-3/4" oninput="filterArticles()" />
+                    <button class="rounded-r-lg bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Cari</button>
+                </div>                
+                <div class="flex">
+                    <div class="logo w-16 h-16">
+                        <img src="https://media.discordapp.net/attachments/1268524227796140034/1298543886058258452/telkomcorpu_logo-removebg-preview.png?ex=67364afc&is=6734f97c&hm=ec7dc7cd31dd7be729e2810c4bf0697dba1b59cedb03d5ea6305254c86a68c1a&=&format=webp&quality=lossless&width=250&height=250" class="w-full h-full" />
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="text-xl font-semibold mb-4">Semua hasil pencarian hidup-sehat</h2>
+
+            <div id="articleContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="article bg-white rounded-lg shadow-md overflow-hidden transition-shadow duration-300 hover:shadow-xl" data-title="Hidup Lebih Sehat Setelah Lebaran, Pasti Bisa!" data-tags="hidup sehat, tips">
+                    <a href="article1" class="block">
+                        <img src="https://www.gethealthcaretips.com/wp-content/uploads/2020/01/5-Best-Health-Care-Tips-To-Maintain-A-Healthy-Lifestyle.jpeg" alt="Healthy Living" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <span class="inline-block bg-blue-100 text-blue-800 text-xs px-2 rounded-full uppercase font-semibold tracking-wide mb-2">Hidup Sehat</span>
+                            <h3 class="text-lg font-semibold mb-2">Hidup Lebih Sehat Setelah Lebaran, Pasti Bisa!</h3>
+                            <p class="text-gray-600 text-sm">Lebaran adalah waktu yang tepat untuk memulai kembali pola hidup sehat. Tak perlu repot-repot, cukup ikuti tips sederhana ini.</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="article bg-white rounded-lg shadow-md overflow-hidden transition-shadow duration-300 hover:shadow-xl" data-title="Ini 7 Pola Hidup Sehat untuk Mencegah Impotensi" data-tags="seks, hidup sehat">
+                    <a href="article2" class="block">
+                        <img src="https://th.bing.com/th/id/R.8ebd2e363060588c3b676266d3d7a491?rik=HxDD%2bOPRoiTnXw&riu=http%3a%2f%2foneminutenews.com%2fwp-content%2fuploads%2f2021%2f03%2fPaste-8.png&ehk=rbmZN1AbLbMmtcaApGCRCC0O1bzpHbUAEjawsixeSGg%3d&risl=&pid=ImgRaw&r=0" alt="Preventing Impotence" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <span class="inline-block bg-purple-100 text-purple-800 text-xs px-2 rounded-full uppercase font-semibold tracking-wide mb-2">Seks</span>
+                            <h3 class="text-lg font-semibold mb-2">Ini 7 Pola Hidup Sehat untuk Mencegah Impotensi</h3>
+                            <p class="text-gray-600 text-sm">Impotensi bukan hanya mengganggu aktivitas seksual saja, tetapi juga bisa menurunkan harga diri. Cegah dengan pola hidup sehat ini.</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="article bg-white rounded-lg shadow-md overflow-hidden transition-shadow duration-300 hover:shadow-xl" data-title="Ini 5 Pola Hidup Sehat yang Perlu Diterapkan oleh Pengidap Asma" data-tags="asma, hidup sehat">
+                    <a href="article3" class="block">
+                        <img src="https://dailymedicos.com/wp-content/uploads/2020/04/Asthma-1.jpg" alt="Asthma Management" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <span class="inline-block bg-green-100 text-green-800 text-xs px-2 rounded-full uppercase font-semibold tracking-wide mb-2">Asma</span>
+                            <h3 class="text-lg font-semibold mb-2">Ini 5 Pola Hidup Sehat yang Perlu Diterapkan oleh Pengidap Asma</h3>
+                            <p class="text-gray-600 text-sm">Penyakit asma dapat berbahaya apabila gejalanya tidak segera ditangani. Agar asma tidak kambuh, terapkan pola hidup sehat berikut.</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="article bg-white rounded-lg shadow-md overflow-hidden transition-shadow duration-300 hover:shadow-xl" data-title="5 Tips Nutrisi untuk Menjaga Kesehatan" data-tags="nutrisi, tips">
+                    <a href="article4" class="block">
+                        <img src="https://veganuary.com/wp-content/uploads/2020/09/nutrition-hero.jpg" alt="Nutrition Tips" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <span class="inline-block bg-yellow-100 text-yellow-800 text-xs px-2 rounded-full uppercase font-semibold tracking-wide mb-2">Nutrisi</span>
+                            <h3 class="text-lg font-semibold mb-2">5 Tips Nutrisi untuk Menjaga Kesehatan</h3>
+                            <p class="text-gray-600 text-sm">Nutrisi yang baik adalah kunci untuk hidup sehat. Berikut adalah lima tips untuk meningkatkan asupan gizi Anda.</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="article bg-white rounded-lg shadow-md overflow-hidden transition-shadow duration-300 hover:shadow-xl" data-title="Pentingnya Kesehatan Mental di Era Modern" data-tags="mental, kesehatan">
+                    <a href="article5" class="block">
+                        <img src="https://s3-us-west-2.amazonaws.com/courses-images/wp-content/uploads/sites/855/2017/04/03130737/mental-health-2019924_1920-1024x682.jpg" alt="Mental Health" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <span class="inline-block bg-red-100 text-red-800 text-xs px-2 rounded-full uppercase font-semibold tracking-wide mb-2">Kesehatan Mental</span>
+                            <h3 class="text-lg font-semibold mb-2">Pentingnya Kesehatan Mental di Era Modern</h3>
+                            <p class="text-gray-600 text-sm">Kesehatan mental sama pentingnya dengan kesehatan fisik. Temukan cara untuk menjaga kesehatan mental Anda.</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="article bg-white rounded-lg shadow-md overflow-hidden transition-shadow duration-300 hover:shadow-xl" data-title="Rutin Berolahraga untuk Hidup Sehat" data-tags="olahraga, tips">
+                    <a href="article6" class="block">
+                        <img src="https://sportsglory.com/wp-content/uploads/2020/04/Workout-Routines.jpg" alt="Exercise Routines" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <span class="inline-block bg-indigo-100 text-indigo-800 text-xs px-2 rounded-full uppercase font-semibold tracking-wide mb-2">Olahraga</span>
+                            <h3 class="text-lg font-semibold mb-2">Rutin Berolahraga untuk Hidup Sehat</h3>
+                            <p class="text-gray-600 text-sm">Berolahraga secara teratur memiliki banyak manfaat. Berikut adalah beberapa rutinitas yang bisa Anda coba.</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="article bg-white rounded-lg shadow-md overflow-hidden transition-shadow duration-300 hover:shadow-xl" data-title="5 Resep Sehat untuk Makan Siang" data-tags="resepi, sehat">
+                    <a href="article7" class="block">
+                        <img src="https://img.freepik.com/premium-photo/ingredients-healthy-recipe_951562-6281.jpg" alt="Healthy Recipes" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <span class="inline-block bg-orange-100 text-orange-800 text-xs px-2 rounded-full uppercase font-semibold tracking-wide mb-2">Resep Sehat</span>
+                            <h3 class="text-lg font-semibold mb-2">5 Resep Sehat untuk Makan Siang</h3>
+                            <p class="text-gray-600 text-sm">Makan siang tidak harus membosankan! Berikut adalah lima resep sehat dan lezat yang bisa Anda coba.</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="article bg-white rounded-lg shadow-md overflow-hidden transition-shadow duration-300 hover:shadow-xl" data-title="Mengapa Hidrasi Penting untuk Kesehatan Anda?" data-tags="hidrasi, kesehatan">
+                    <a href="article8" class="block">
+                        <img src="https://enesis.com/wp-content/uploads/hidrasi-adalah.jpg" alt="Hidrasi" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <span class="inline-block bg-teal-100 text-teal-800 text-xs px-2 rounded-full uppercase font-semibold tracking-wide mb-2">Hidrasi</span>
+                            <h3 class="text-lg font-semibold mb-2">Mengapa Hidrasi Penting untuk Kesehatan Anda?</h3>
+                            <p class="text-gray-600 text-sm">Hidrasi yang cukup sangat penting untuk kesehatan. Temukan alasan dan cara untuk menjaga tubuh tetap terhidrasi.</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="article bg-white rounded-lg shadow-md overflow-hidden transition-shadow duration-300 hover:shadow-xl" data-title="Cara Mengelola Stres dengan Efektif" data-tags="stres, manajemen">
+                    <a href="article9" class="block">
+                        <img src="https://www.adrenalfatiguecoach.com/wp-content/uploads/2017/12/Stress-Management-1.jpg" alt="Stress Management" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <span class="inline-block bg-purple-200 text-purple-800 text-xs px-2 rounded-full uppercase font-semibold tracking-wide mb-2">Stres</span>
+                            <h3 class="text-lg font-semibold mb-2">Cara Mengelola Stres dengan Efektif</h3>
+                            <p class="text-gray-600 text-sm">Stres bisa berdampak buruk pada kesehatan. Temukan cara untuk mengelola stres Anda dengan lebih baik.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <script>
+                document.getElementById('bmiForm').addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const name = document.getElementById('name').value;
+                    const age = document.getElementById('age').value;
+                    const weight = parseFloat(document.getElementById('weight').value);
+                    const height = parseFloat(document.getElementById('height').value) / 100; // Convert cm to m
+                    
+                    const bmi = weight / (height * height);
+                    let category;
+                    let articlePage;
+
+                if (bmi < 18.5) {
+                category = 'Underweight';
+                        articlePage = 'underweight-category';
+                    } else if (bmi >= 18.5 && bmi < 25) {
+                        category = 'Normal weight';
+                        articlePage = 'normal-category';
+                    } else if (bmi >= 25 && bmi < 30) {
+                        category = 'Overweight';
+                        articlePage = 'overweight-category';
+                    } else {
+                        category = 'Obese';
+                        articlePage = 'obese-category';
+                    }
+                    
+                    document.getElementById('nameResult').textContent = `Nama: ${name}`;
+                    document.getElementById('ageResult').textContent = `Umur: ${age}`;
+                    document.getElementById('bmiResult').textContent = `BMI: ${bmi.toFixed(2)}`;
+                    document.getElementById('categoryResult').textContent = `Category: ${category}`;
+                    
+                    document.getElementById('result').classList.remove('hidden');
+                    
+                    // Set the href for the viewArticles button
+                    document.getElementById('viewArticles').onclick = function() {
+                        window.location.href = articlePage;
+                    };
+
+                    document.getElementById('viewArticles').classList.remove('hidden');
+                });
+
+                function filterArticles() {
+                    const input = document.getElementById('searchInput').value.toLowerCase();
+                    const articles = document.querySelectorAll('.article');
+
+                    articles.forEach(article => {
+                        const title = article.getAttribute('data-title').toLowerCase();
+                        const tags = article.getAttribute('data-tags').toLowerCase();
+                        if (title.includes(input) || tags.includes(input)) {
+                            article.style.display = ''; // Show article
+                        } else {
+                            article.style.display = 'none'; // Hide article
+                        }
+                    });
+                }            </script>
+        </div>
+    </div>
+</body>
+</html>

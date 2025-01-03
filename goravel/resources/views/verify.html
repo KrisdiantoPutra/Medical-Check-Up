@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Email</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+<div class="flex items-center justify-center min-h-screen bg-gray-100">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+        <h2 class="text-xl font-semibold mb-4 text-center">Verify Your Email</h2>
+        <p class="mb-4 text-center">We have sent a verification code to your email. Please enter it below to verify your account.</p>
+        <form id="verifyForm" action="/verify" method="POST">
+            <div class="mb-4">
+                <label class="block mb-2 text-sm font-medium" for="verificationCode">Verification Code</label>
+                <input type="text" id="verificationCode" name="verificationCode" class="input-field w-full p-2 border border-gray-300 rounded-lg" required>
+            </div>
+            <button type="submit" class="btn w-full p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-200">Verify Email</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

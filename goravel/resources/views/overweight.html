@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Animated Sidebar with Search Results</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .sidebar-gradient {
+            background: linear-gradient(180deg, #4F46E5 0%, #7C3AED 100%);
+        }
+
+        .sidebar {
+            transition: all 0.3s ease-in-out;
+        }
+
+        .sidebar.closed {
+            transform: translateX(-100%);
+        }
+
+        .menu-item {
+            transition: all 0.2s ease;
+        }
+
+        .menu-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+
+        .toggle-btn {
+            transition: all 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            transform: rotate(180deg);
+        }
+
+        .article-item {
+            width: 100%; /* Set the width to 100% of the grid cell */
+            max-width: 400px; /* Set a max-width for uniformity */
+            transition: box-shadow 0.3s ease; /* Add transition for shadow */
+        }
+
+        .article-item:hover {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Shadow effect on hover */
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="min-h-screen flex">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="sidebar sidebar-gradient text-white w-64 fixed h-full left-0 top-0 z-50 shadow-lg">
+            <div class="p-5 flex flex-col h-full">
+                <div class="flex items-center justify-between mb-10">
+                    <h2 class="text-2xl font-semibold">Category</h2>
+                    <button id="closeSidebar" class="toggle-btn text-white focus:outline-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                    <nav class="flex-grow">
+                    <ul class="space-y-2">
+                        <li>
+                            <a href="bmi" class="menu-item flex items-center py-3 px-4 rounded-lg text-white hover:bg-white hover:bg-opacity-10 transition-all duration-200">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                </svg>
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="menu-item flex items-center py-3 px-4 rounded-lg text-white hover:bg-white hover:bg-opacity-10 transition-all duration-200">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                                </svg>
+                                Analytics
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="menu-item flex items-center py-3 px-4 rounded-lg text-white hover:bg-white hover:bg-opacity-10 transition-all duration-200">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                                </svg>
+                                Messages
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="menu-item flex items-center py-3 px-4 rounded-lg text-white hover:bg-white hover:bg-opacity-10 transition-all duration-200">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                                Settings
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="mt-auto">
+                    <a href="#" class="flex items-center py-3 px-4 rounded-lg text-white hover:bg-white hover:bg-opacity-10 transition-all duration-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                        </svg>
+                        Log Out
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="flex-grow ml-64 p-8 transition-all duration-300">
+            <header class="flex items-center justify-between mb-4">
+                <h1 class="text-3xl font-bold">Welcome to the overweight category</h1>
+                <button id="openSidebar" class="toggle-btn text-gray-600 focus:outline-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </header>
+            <div class="mb-8">
+                <input type="text" id="searchInput" placeholder="Search..." class="border border-gray-300 p-2 rounded w-full" oninput="filterResults()" />
+            </div>
+
+            <h2 class="text-xl font-semibold mb-4">Semua Hasil Pencarian</h2>
+            <div id="resultsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Artikel Data -->
+<!-- Artikel Umum -->
+<div class="article-item" data-title="Apa itu Kelebihan Berat Badan? Panduan Dasar">
+    <a href="#" class="bg-white rounded-lg shadow-md overflow-hidden block">
+        <img src="/placeholder.svg?height=200&width=400" alt="Mengatasi Kelebihan Berat" class="w-full h-48 object-cover">
+        <div class="p-4">
+            <span class="inline-block bg-blue-100 text-blue-800 text-xs px-2 rounded-full uppercase font-semibold tracking-wide mb-2">Kelebihan Berat</span>
+            <h3 class="text-lg font-semibold mb-2">Apa itu Kelebihan Berat Badan? Panduan Dasar</h3>
+            <p class="text-gray-600 text-sm">Jelajahi pemahaman dasar tentang kelebihan berat badan dan dampaknya terhadap kesehatan.</p>
+        </div>
+    </a>
+</div>
+<div class="article-item" data-title="Tips Diet Sehat untuk Menurunkan Berat Badan">
+    <a href="#" class="bg-white rounded-lg shadow-md overflow-hidden block">
+        <img src="/placeholder.svg?height=200&width=400" alt="Diet Sehat" class="w-full h-48 object-cover">
+        <div class="p-4">
+            <span class="inline-block bg-purple-100 text-purple-800 text-xs px-2 rounded-full uppercase font-semibold tracking-wide mb-2">Kelebihan Berat</span>
+            <h3 class="text-lg font-semibold mb-2">Tips Diet Sehat untuk Menurunkan Berat Badan</h3>
+            <p class="text-gray-600 text-sm">Temukan tips diet sehat untuk membantu menurunkan berat badan dengan aman.</p>
+        </div>
+    </a>
+</div>
+<div class="article-item" data-title="5 Aktivitas Fisik untuk Menurunkan Berat Badan">
+    <a href="#" class="bg-white rounded-lg shadow-md overflow-hidden block">
+        <img src="/placeholder.svg?height=200&width=400" alt="Olahraga dan Kesehatan" class="w-full h-48 object-cover">
+        <div class="p-4">
+            <span class="inline-block bg-green-100 text-green-800 text-xs px-2 rounded-full uppercase font-semibold tracking-wide mb-2">Kelebihan Berat</span>
+            <h3 class="text-lg font-semibold mb-2">5 Aktivitas Fisik untuk Menurunkan Berat Badan</h3>
+            <p class="text-gray-600 text-sm">Pelajari tentang aktivitas fisik yang efektif untuk menurunkan berat badan.</p>
+        </div>
+    </a>
+</div>
+<div class="article-item" data-title="Mengatasi Stres dan Kelebihan Berat Badan">
+    <a href="#" class="bg-white rounded-lg shadow-md overflow-hidden block">
+        <img src="/placeholder.svg?height=200&width=400" alt="Kesehatan Mental" class="w-full h-48 object-cover">
+        <div class="p-4">
+            <span class="inline-block bg-yellow-100 text-yellow-800 text-xs px-2 rounded-full uppercase font-semibold tracking-wide mb-2">Kelebihan Berat</span>
+            <h3 class="text-lg font-semibold mb-2">Mengatasi Stres dan Kelebihan Berat Badan</h3>
+            <p class="text-gray-600 text-sm">Pahami hubungan antara stres dan kelebihan berat badan serta cara mengatasinya.</p>
+        </div>
+    </a>
+</div>
+<div class="article-item" data-title="Strategi Keluarga untuk Hidup Sehat dan Ideal Berat Badan">
+    <a href="#" class="bg-white rounded-lg shadow-md overflow-hidden block">
+        <img src="/placeholder.svg?height=200&width=400" alt="Kesehatan Keluarga" class="w-full h-48 object-cover">
+        <div class="p-4">
+            <span class="inline-block bg-red-100 text-red-800 text-xs px-2 rounded-full uppercase font-semibold tracking-wide mb-2">Kelebihan Berat</span>
+            <h3 class="text-lg font-semibold mb-2">Strategi Keluarga untuk Hidup Sehat dan Ideal Berat Badan</h3>
+            <p class="text-gray-600 text-sm">Jelajahi strategi keluarga untuk mencapai dan mempertahankan berat badan yang sehat.</p>
+        </div>
+    </a>
+</div>
+<div class="article-item" data-title="Peran Komunitas dalam Mendukung Penurunan Berat Badan">
+    <a href="#" class="bg-white rounded-lg shadow-md overflow-hidden block">
+        <img src="/placeholder.svg?height=200&width=400" alt="Dukungan Komunitas" class="w-full h-48 object-cover">
+        <div class="p-4">
+            <span class="inline-block bg-indigo-100 text-indigo-800 text-xs px-2 rounded-full uppercase font-semibold tracking-wide mb-2">Kelebihan Berat</span>
+            <h3 class="text-lg font-semibold mb-2">Peran Komunitas dalam Mendukung Penurunan Berat Badan</h3>
+            <p class="text-gray-600 text-sm">Pelajari bagaimana dukungan komunitas dapat membantu dalam perjalanan penurunan berat badan.</p>
+        </div>
+    </a>
+</div>
+
+<!-- Artikel Tambahan -->
+<div class="article-item" data-title="Mengapa Tidur Cukup Penting untuk Menurunkan Berat Badan">
+    <a href="#" class="bg-white rounded-lg shadow-md overflow-hidden block">
+        <img src="/placeholder.svg?height=200&width=400" alt="Higiene Tidur" class="w-full h-48 object-cover">
+        <div class="p-4">
+            <span class="inline-block bg-teal-100 text-teal-800 text-xs px-2 rounded-full uppercase font-semibold tracking-wide mb-2">Kelebihan Berat</span>
+            <h3 class="text-lg font-semibold mb-2">Mengapa Tidur Cukup Penting untuk Menurunkan Berat Badan</h3>
+            <p class="text-gray-600 text-sm">Temukan pentingnya tidur yang cukup untuk mendukung upaya penurunan berat badan.</p>
+        </div>
+    </a>
+</div>
+<div class="article-item" data-title="Strategi Mengelola Stres untuk Mencegah Kelebihan Berat Badan">
+    <a href="#" class="bg-white rounded-lg shadow-md overflow-hidden block">
+        <img src="/placeholder.svg?height=200&width=400" alt="Mengelola Stres" class="w-full h-48 object-cover">
+        <div class="p-4">
+            <span class="inline-block bg-pink-100 text-pink-800 text-xs px-2 rounded-full uppercase font-semibold tracking-wide mb-2">Kelebihan Berat</span>
+            <h3 class="text-lg font-semibold mb-2">Strategi Mengelola Stres untuk Mencegah Kelebihan Berat Badan</h3>
+            <p class="text-gray-600 text-sm">Jelajahi strategi untuk mengelola stres yang dapat mencegah kelebihan berat badan.</p>
+        </div>
+    </a>
+</div>
+<div class="article-item" data-title="Resep Memasak Sehat untuk Menjaga Berat Badan Ideal">
+    <a href="#" class="bg-white rounded-lg shadow-md overflow-hidden block">
+        <img src="/placeholder.svg?height=200&width=400" alt="Memasak Sehat" class="w-full h-48 object-cover">
+        <div class="p-4">
+            <span class="inline-block bg-gray-100 text-gray-800 text-xs px-2 rounded-full uppercase font-semibold tracking-wide mb-2">Kelebihan Berat</span>
+            <h3 class="text-lg font-semibold mb-2">Resep Memasak Sehat untuk Menjaga Berat Badan Ideal</h3>
+            <p class="text-gray-600 text-sm">Temukan resep memasak sehat yang membantu menjaga berat badan ideal.</p>
+        </div>
+    </a>
+</div>
+
+    <script>
+        function filterResults() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const articles = document.querySelectorAll('.article-item');
+
+            articles.forEach(article => {
+                const title = article.getAttribute('data-title').toLowerCase();
+                if (title.includes(searchInput)) {
+                    article.style.display = '';
+                } else {
+                    article.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

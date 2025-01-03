@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Script untuk memastikan password dan repeat password cocok
+        function validatePasswords() {
+            var password = document.getElementById("accountPassword").value;
+            var repeatPassword = document.getElementById("repeatPassword").value;
+            var submitButton = document.getElementById("submitButton");
+            var passwordError = document.getElementById("passwordError");
+            var lengthError = document.getElementById("lengthError");
+
+            // Validasi panjang password
+            if (password.length < 6) {
+                lengthError.style.display = "block";
+                submitButton.disabled = true;
+            } else {
+                lengthError.style.display = "none";
+            }
+
+            // Validasi kecocokan password
+            if (password !== repeatPassword) {
+                passwordError.style.display = "block";
+                submitButton.disabled = true;
+            } else {
+                passwordError.style.display = "none";
+                if (password.length >= 6) {
+                    submitButton.disabled = false;
+                }
+            }
+        }
+
+        // Simulasi mengirim email verifikasi dan pengalihan ke halaman verifikasi
+        function sendVerificationEmail(event) {
+            event.preventDefault();  // Mencegah form submit default
+            // Di sini Anda akan mengirimkan email verifikasi (simulasi)
+            alert("Email verifikasi telah dikirim ke email Anda. Silakan periksa inbox Anda.");
+
+            // Alihkan ke halaman verifikasi
+            window.location.href = "verify";  // Arahkan ke halaman verifikasi
+        }
+    </script>
+</head>
+<body>
+<!-- Modal untuk Create Account -->
+<div id="createAccountModal" class="modal fixed inset-0 flex items-center justify-center bg-gray-100 z-50">
+    <div class="modal-content bg-white rounded-lg shadow-lg w-full max-w-md p-6">
+        <h2 class="text-xl font-semibold mb-4 text-center">Sign up</h2>
+        <form id="createAccountForm" onsubmit="sendVerificationEmail(event)">
+            <div class="mb-4">
+                <label class="block mb-2 text-sm font-medium" for="accountEmail">Email</label>
+                <input type="email" id="accountEmail" name="Email" class="input-field w-full p-2 border border-gray-300 rounded-lg" required>
+                <p class="text-sm text-gray-600 mt-1">Anda akan menerima email verifikasi setelah pendaftaran.</p>
+            </div>
+            <div class="mb-4">
+                <label class="block mb-2 text-sm font-medium" for="accountPassword">Password</label>
+                <input type="password" id="accountPassword" name="Password" class="input-field w-full p-2 border border-gray-300 rounded-lg" required oninput="validatePasswords()" minlength="6">
+                <p id="lengthError" class="text-red-500 text-sm mt-1" style="display: none;">Password harus terdiri dari minimal 6 karakter.</p>
+            </div>
+            <div class="mb-4">
+                <label class="block mb-2 text-sm font-medium" for="repeatPassword">Confrim Password</label>
+                <input type="password" id="repeatPassword" name="RepeatPassword" class="input-field w-full p-2 border border-gray-300 rounded-lg" required oninput="validatePasswords()">
+                <p id="passwordError" class="text-red-500 text-sm mt-1" style="display: none;">Passwords do not match.</p>
+            </div>
+            <div class="mb-4">
+                <label class="block mb-2 text-sm font-medium" for="accountAge">Umur</label>
+                <input type="number" id="accountAge" name="Age" class="input-field w-full p-2 border border-gray-300 rounded-lg" required min="1">
+            </div>
+            <!-- Dropdown Riwayat Hidup -->
+            <div class="mb-4">
+                <label class="block mb-2 text-sm font-medium" for="medicalHistory">Riwayat Hidup</label>
+                <select id="medicalHistory" name="MedicalHistory" class="input-field w-full p-2 border border-gray-300 rounded-lg" required>
+                    <option value="" disabled selected>Pilih riwayat hidup Anda</option>
+                    <option value="none">Tidak ada riwayat hidup khusus</option>
+                    <option value="diabetes">Diabetes</option>
+                    <option value="hypertension">Hipertensi</option>
+                    <option value="heartDisease">Penyakit Jantung</option>
+                    <option value="asthma">Asma</option>
+                    <option value="cancer">Kanker</option>
+                    <option value="other">Lainnya</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label class="block mb-2 text-sm font-medium" for="allergies">Alergi</label>
+                <select id="allergies" name="Allergies" class="input-field w-full p-2 border border-gray-300 rounded-lg" required>
+                    <option value="" disabled selected>Pilih alergi Anda</option>
+                    <option value="none">Tidak ada</option>
+                    <option value="pollen">Serbuk sari</option>
+                    <option value="dust">Debu</option>
+                    <option value="nuts">Kacang-kacangan</option>
+                    <option value="dairy">Produk susu</option>
+                    <option value="gluten">Gluten</option>
+                    <option value="shellfish">Makanan laut (kerang, udang, dll.)</option>
+                    <option value="other">Lainnya</option>
+                </select>
+            </div>
+            <button type="submit" id="submitButton" class="btn w-full p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-200" disabled>Create Account</button>
+            <div class="mt-4 text-center">
+                <p class="text-sm text-gray-600">
+                    <a href="/" class="text-blue-500 hover:underline">Back to Login?</a>
+                </p>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

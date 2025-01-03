@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Check Up</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 50;
+        }
+        .modal-content {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 400px;
+            margin: 20px auto;
+            top: 20%;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        .input-field {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 10px;
+            transition: border-color 0.3s;
+        }
+        .input-field:focus {
+            border-color: #3182ce;
+            outline: none;
+        }
+        .btn {
+            background-color: #3182ce;
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #2b6cb0;
+        }
+        .profile-menu {
+            display: none;
+            position: absolute;
+            right: 20px;
+            top: 60px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+        .profile-menu.show {
+            display: block;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-100">
+
+    <!-- Header -->
+    <header class="border-b">
+        <div class="container mx-auto px-4">
+            <nav class="flex items-center justify-between h-16 md:h-20">
+                <div class="flex items-center space-x-8">
+                    <a href="/dashboard" class="text-gray-600 hover:text-gray-900">Home</a>
+                    <a href="bmi" class="text-gray-600 hover:text-gray-900">Bmi</a>
+                    <a href="#" class="text-gray-600 hover:text-gray-900">Article</a>
+                </div>
+
+                <a href="#" class="absolute left-1/2 transform -translate-x-1/2">
+                    <h1 class="text-3xl font-serif italic">MCU</h1>
+                </a>
+
+                <div class="relative">
+                    <!-- Gambar Profil -->
+                    <img id="profileButton" src="https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg" alt="Profile Picture" class="w-10 h-10 rounded-full cursor-pointer hover:bg-gray-400" />
+                    <div id="profileMenu" class="profile-menu">
+                        <a href="profile.html" class="block px-4 py-2 text-gray-600 hover:bg-gray-200">Profile</a>
+                        <a href="/" class="block px-4 py-2 text-gray-600 hover:bg-gray-200">Sign Out</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Notification Modal -->
+    <div id="notification" class="hidden fixed top-0 left-1/2 transform -translate-x-1/2 mt-4 p-4 bg-green-500 text-white rounded shadow-md">
+        Account created successfully!
+    </div>
+
+    <div class="container mx-auto px-4 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <article class="group cursor-pointer">
+                <div class="relative overflow-hidden rounded-lg">
+                    <img src="https://www.rskariadi.co.id/filefoto/manfaat%20cek%20kesehatan%20rutin.jpg" alt="Pentingnya Pemeriksaan Kesehatan Rutin" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105" />
+                </div>
+                <div class="mt-4 space-y-2">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xs font-medium text-blue-600 uppercase tracking-wider">Kesehatan</span>
+                        <span class="text-xs text-gray-500">•</span>
+                        <span class="text-xs text-gray-500">1 November 2024</span>
+                    </div>
+                    <h3 class="text-lg font-semibold leading-tight group-hover:text-blue-600 transition-colors duration-200">
+                        Pentingnya Pemeriksaan Kesehatan Rutin
+                    </h3>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-sm text-gray-600">Oleh Dr. Alice Smith</span>
+                    </div>
+                </div>
+            </article>
+    
+            <article class="group cursor-pointer">
+                <div class="relative overflow-hidden rounded-lg">
+                    <img src="https://d324bm9stwnv8c.cloudfront.net/darah-jadi-sampe-utama-untuk-tes-hematologi-benarkah-halodoc.jpg" alt="Memahami Hasil Tes Darah Anda" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105" />
+                </div>
+                <div class="mt-4 space-y-2">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xs font-medium text-blue-600 uppercase tracking-wider">Kesehatan</span>
+                        <span class="text-xs text-gray-500">•</span>
+                        <span class="text-xs text-gray-500">30 Oktober 2024</span>
+                    </div>
+                    <h3 class="text-lg font-semibold leading-tight group-hover:text-blue-600 transition-colors duration-200">
+                        Memahami Hasil Tes Darah Anda
+                    </h3>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-sm text-gray-600">Oleh Dr. Bob Johnson</span>
+                    </div>
+                </div>
+            </article>
+    
+            <article class="group cursor-pointer">
+                <div class="relative overflow-hidden rounded-lg">
+                    <img src="https://balkesmagelang.dinkesjatengprov.go.id/wp-content/uploads/2018/05/10-Tips-Perilaku-Hidup-Sehat.jpg" alt="Tips untuk Gaya Hidup Sehat" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105" />
+                </div>
+                <div class="mt-4 space-y-2">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xs font-medium text-blue-600 uppercase tracking-wider">Gaya Hidup</span>
+                        <span class="text-xs text-gray-500">•</span>
+                        <span class="text-xs text-gray-500">28 Oktober 2024</span>
+                    </div>
+                    <h3 class="text-lg font-semibold leading-tight group-hover:text-blue-600 transition-colors duration-200">
+                        Tips untuk Gaya Hidup Sehat
+                    </h3>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-sm text-gray-600">Oleh Dr. Emily Carter</span>
+                    </div>
+                </div>
+            </article>
+    
+            <article class="group cursor-pointer">
+                <div class="relative overflow-hidden rounded-lg">
+                    <img src="https://asset-a.grid.id/crop/0x0:0x0/700x465/photo/2019/03/26/3982293527.jpg" alt="Mengelola Stres untuk Kesehatan yang Lebih Baik" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105" />
+                </div>
+                <div class="mt-4 space-y-2">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xs font-medium text-blue-600 uppercase tracking-wider">Kesehatan Mental</span>
+                        <span class="text-xs text-gray-500">•</span>
+                        <span class="text-xs text-gray-500">25 Oktober 2024</span>
+                    </div>
+                    <h3 class="text-lg font-semibold leading-tight group-hover:text-blue-600 transition-colors duration-200">
+                        Mengelola Stres untuk Kesehatan yang Lebih Baik
+                    </h3>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-sm text-gray-600">Oleh Dr. Sarah Green</span>
+                    </div>
+                </div>
+            </article>
+    
+            <article class="group cursor-pointer">
+                <div class="relative overflow-hidden rounded-lg">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi7csz5DNN1DqsRqkxedNPOy6gsAHg-G8sh8VuEh4xw2s8VcbldW0ZbH2DJj0n9jOiZjkLKzY6BXr_fBXrVVyAp2YJDgagXAPRNm1e0oesyh0dhjg6LaxE9A18-ALamfSB_cRmKtGtihaw7cCAmYSrP2QwlBnGiJElHthv2oOvFrmZkwcrycYA-zD6oz2o/s1024/AlbedoBase_XL_illustration_of_a_healthy_balanced_diet_0.jpg" alt="Peran Nutrisi dalam Kesehatan" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105" />
+                </div>
+                <div class="mt-4 space-y-2">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xs font-medium text-blue-600 uppercase tracking-wider">Nutrisi</span>
+                        <span class="text-xs text-gray-500">•</span>
+                        <span class="text-xs text-gray-500">20 Oktober 2024</span>
+                    </div>
+                    <h3 class="text-lg font-semibold leading-tight group-hover:text-blue-600 transition-colors duration-200">
+                        Peran Nutrisi dalam Kesehatan
+                    </h3>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-sm text-gray-600">Oleh Dr. Kevin White</span>
+                    </div>
+                </div>
+            </article>
+    
+            <article class="group cursor-pointer">
+                <div class="relative overflow-hidden rounded-lg">
+                    <img src="https://img.okezone.com/content/2019/09/19/481/2106665/zaman-makin-modern-inovasi-pelayanan-kesehatan-di-tanah-air-perlu-ditingkatkan-KyyzsFmDN2.jpg" alt="Perawatan Kesehatan Preventif: Apa yang Perlu Anda Ketahui" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105" />
+                </div>
+                <div class="mt-4 space-y-2">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xs font-medium text-blue-600 uppercase tracking-wider">Kesehatan</span>
+                        <span class="text-xs text-gray-500">•</span>
+                        <span class="text-xs text-gray-500">15 Oktober 2024</span>
+                    </div>
+                    <h3 class="text-lg font-semibold leading-tight group-hover:text-blue-600 transition-colors duration-200">
+                        Perawatan Kesehatan Preventif: Apa yang Perlu Anda Ketahui
+                    </h3>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-sm text-gray-600">Oleh Dr. Anna Brown</span>
+                    </div>
+                </div>
+            </article>
+    
+            <!-- Artikel tambahan -->
+            <article class="group cursor-pointer">
+                <div class="relative overflow-hidden rounded-lg">
+                    <img src="https://th.bing.com/th/id/OIP.WPg2iZ_TWd6lnHHhbVtLKAHaEn?rs=1&pid=ImgDetMain" alt="Manfaat Olahraga Teratur" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105" />
+                </div>
+                <div class="mt-4 space-y-2">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xs font-medium text-blue-600 uppercase tracking-wider">Kesehatan</span>
+                        <span class="text-xs text-gray-500">•</span>
+                        <span class="text-xs text-gray-500">5 November 2024</span>
+                    </div>
+                    <h3 class="text-lg font-semibold leading-tight group-hover:text-blue-600 transition-colors duration-200">
+                        Manfaat Olahraga Teratur
+                    </h3>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-sm text-gray-600">Oleh Dr. Maya Kusuma</span>
+                    </div>
+                </div>
+            </article>
+    
+            <article class="group cursor-pointer">
+                <div class="relative overflow-hidden rounded-lg">
+                    <img src="https://res.cloudinary.com/dk0z4ums3/image/upload/v1543292331/attached_image/tubuh-terasa-lelah-saat-bangun-tidur-ini-penyebab-dan-cara-mengatasinya.jpg" alt="Cara Membangun Kebiasaan Tidur yang Baik" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105" />
+                </div>
+                <div class="mt-4 space-y-2">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xs font-medium text-blue-600 uppercase tracking-wider">Kesehatan</span>
+                        <span class="text-xs text-gray-500">•</span>
+                        <span class="text-xs text-gray-500">10 November 2024</span>
+                    </div>
+                    <h3 class="text-lg font-semibold leading-tight group-hover:text-blue-600 transition-colors duration-200">
+                        Cara Membangun Kebiasaan Tidur yang Baik
+                    </h3>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-sm text-gray-600">Oleh Dr. Nia Lestari</span>
+                    </div>
+                </div>
+            </article>
+    
+            <article class="group cursor-pointer">
+                <div class="relative overflow-hidden rounded-lg">
+                    <img src="https://bertsolution.com/wp-content/uploads/2021/10/3-Fakta-Tentang-Pentingnya-Hidrasi-Tubuh-sebagai-Investasi-Kesehatan.jpg" alt="Pentingnya Hidrasi untuk Kesehatan" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105" />
+                </div>
+                <div class="mt-4 space-y-2">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xs font-medium text-blue-600 uppercase tracking-wider">Nutrisi</span>
+                        <span class="text-xs text-gray-500">•</span>
+                        <span class="text-xs text-gray-500">12 November 2024</span>
+                    </div>
+                    <h3 class="text-lg font-semibold leading-tight group-hover:text-blue-600 transition-colors duration-200">
+                        Pentingnya Hidrasi untuk Kesehatan
+                    </h3>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-sm text-gray-600">Oleh Dr. Rudi Santoso</span>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+
+    <script>
+        // Profile menu functionality
+        const profileButton = document.getElementById('profileButton');
+        const profileMenu = document.getElementById('profileMenu');
+
+        profileButton.addEventListener('click', () => {
+            profileMenu.classList.toggle('show');
+        });
+
+        window.addEventListener('click', (event) => {
+            if (!event.target.closest('#profileButton')) {
+                profileMenu.classList.remove('show');
+            }
+        });
+
+        // Show notification function
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.innerText = message;
+            notification.style.display = 'block';
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+
+        // Simulate account creation success for demo purposes
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('status') === 'success') {
+                showNotification('Account created successfully!');
+            }
+        };
+    </script>
+</body>
+</html>
